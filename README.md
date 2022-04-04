@@ -13,8 +13,8 @@ Based on code from https://github.com/goatgoose/PlaceBot and https://github.com/
 
 ## Installation
 For Windows
-1. Install python 
-2. Install pip
+1. Install python https://www.python.org/downloads/ 
+2. Install pip https://bootstrap.pypa.io/get-pip.py
 3. pip install all the requirements in the requirements.txt file
 4. edit the user(s) in config.json
 5. Finally run the start.bat (after you fix the directory it's pointing to inside the bat file. (just edit it with notepad)).
