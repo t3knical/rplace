@@ -28,7 +28,7 @@ from color import get_color_from_index, Color
 
 
 PLACE_INTERVAL = 5 * 60 + 10 #  The interval that pixels can be placed at
-SLEEP_MISMATCH_THRESHOLD = 0.005  # The percentage of pixels mismatching that cause the bot to slow down (not stop) its refresh rate
+SLEEP_MISMATCH_THRESHOLD = 0.0001  # The percentage of pixels mismatching that cause the bot to slow down (not stop) its refresh rate
 
 
 """
