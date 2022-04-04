@@ -6,7 +6,6 @@ Based on code from https://github.com/goatgoose/PlaceBot and https://github.com/
 
 ## Functionality
 - does NOT use the reddit API
-- Convert input image to be drawn to target configuration, ignores transparent pixels
 - Supports multiple accounts
 - Supports obtaining the target configuration from a server (or local file) to prevent outdated templates
 - Supports multiple canvases (2 at the time of writing)
