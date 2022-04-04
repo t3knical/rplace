@@ -13,7 +13,9 @@ Based on code from https://github.com/goatgoose/PlaceBot and https://github.com/
 - Goes to sleep when only few mismatched pixels remain
 
 ## Installation
-For windows just pip install all the requirements in the requirements.txt file then edit the user(s) in config.json and finally run the start.bat after you fix the directory it's pointing to inside the bat file. (just edit it with notepad).
+For windows just pip install all the requirements in the requirements.txt file then edit the user(s) in config.json and finally run the start.bat after you fix the directory it's pointing to inside the bat file. (just edit it with notepad). 
+
+P.S: I used Python 3.7.0 to get it going.
 
 ## Current Preview
 ![alt text](https://github.com/t3knical/rplace/blob/main/current%20preview.png?raw=true)
