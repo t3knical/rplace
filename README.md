@@ -12,7 +12,12 @@ Based on code from https://github.com/goatgoose/PlaceBot and https://github.com/
 - Goes to sleep when only few mismatched pixels remain
 
 ## Installation
-For windows just pip install all the requirements in the requirements.txt file then edit the user(s) in config.json and finally run the start.bat after you fix the directory it's pointing to inside the bat file. (just edit it with notepad). 
+For Windows
+1. Install python 
+2. Install pip
+3. pip install all the requirements in the requirements.txt file
+4. edit the user(s) in config.json
+5. Finally run the start.bat (after you fix the directory it's pointing to inside the bat file. (just edit it with notepad)).
 
 P.S: I used Python 3.7.0 to get it going.
 
