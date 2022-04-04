@@ -1,0 +1,13 @@
+{
+	"accounts": [		
+		{
+			"username": "login1",
+			"password": "pass1"
+		},
+		{
+			"username": "login2",
+			"password": "pass2"
+		}
+	],
+	"target_configuration_url": "https://raw.githubusercontent.com/t3knical/rplace/main/canada.cfg"
+}
