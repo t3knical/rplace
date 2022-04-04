@@ -1,6 +1,6 @@
 # rplace
 
-This is a functional Canadian Flag @ 175,484 bot for the r/place 2022 event.
+This is a functional Canadian Flag @ x:175 y:484 bot for the r/place 2022 event.
 
 Based on code from https://github.com/goatgoose/PlaceBot and https://github.com/rdeepak2002/reddit-place-script-2022.
 
