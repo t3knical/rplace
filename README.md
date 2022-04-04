@@ -15,3 +15,4 @@ Based on code from https://github.com/goatgoose/PlaceBot and https://github.com/
 ## Installation
 For windows just pip install all the requirements in the requirements.txt file then edit the user(s) in config.json and finally run the start.bat after you fix the directory it's pointing to inside the bat file. (just edit it with notepad).
 
+![alt text](https://github.com/t3knical/rplace/current preview.png)
