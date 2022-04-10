@@ -17,4 +17,4 @@ for i in range(img_3x_arr.shape[1]):
         img_3x_arr[:, i, 3] = 0
 
 img_3x_back = Image.fromarray(img_3x_arr)
-img_3x_back.save(f'lattice_overlay.png')
+img_3x_back.save(f'test_overlay.png')
