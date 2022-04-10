@@ -7,8 +7,8 @@
 // @match        https://rplace.tk/
 // @icon         https://rplace.tk/favicon.png
 // @grant        none
-// @updateURL    https://github.com/t3knical/rplace/user.js
-// @downloadURL  https://github.com/t3knical/rplace/raw/user.js
+// @updateURL    https://raw.githubusercontent.com/t3knical/rplace/main/userScript.js
+// @downloadURL  https://raw.githubusercontent.com/t3knical/rplace/main/userScript.js
 // ==/UserScript==
 
 // options
