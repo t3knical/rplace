@@ -42,8 +42,12 @@ function rgbToHex(r, g, b) {
 };
 
 async function attemptPlace() {
+    while(place.innerHTML != "Place a tile")
+    {
+        await new Promise(r => setTimeout(r, 1000));
+    }
     if (order == undefined) {
-        setTimeout(attemptPlace, 10000) // probeer opnieuw in 2sec.
+        setTimeout(attemptPlace, 5000) // probeer opnieuw in 2sec.
         return
     }
     var ctx1
@@ -56,7 +60,7 @@ async function attemptPlace() {
             text: 'Error retrieving map. Try again in 10 sec...',
             duration: DEFAULT_TOAST_DURATION_MS,
         }).showToast()
-        setTimeout(attemptPlace, 10000) // Try again in 10sec.
+        setTimeout(attemptPlace, 5000) // Try again in 10sec.
         return
     }
 
@@ -87,7 +91,7 @@ async function attemptPlace() {
     }).showToast()
 
     console.log(
-        `Trying to place pixel ${x}, ${y}, color ${hex},${COLOR_MAPPINGS[hex]}... (${percentComplete}% complete, ${workRemaining} left)`,
+        `Trying to place pixel ${x}, ${y}, color ${hex},${COLOR_MAPPINGS[hex]},... (${percentComplete}% complete, ${workRemaining} left)`,
     )
 
     // USED FOR MY LOCALHOST PROJECT
@@ -111,8 +115,10 @@ async function attemptPlace() {
 
     //const res = await place(x, y, COLOR_MAPPINGS[hex])
     //const data = await res.json()
+    var loadbuffer = load.buffer
+    console.log("load buffer: %s", place.innerHTML)
 
-    setTimeout(attemptPlace, 10000);
+    setTimeout(attemptPlace, 5000);
 
 };
 
