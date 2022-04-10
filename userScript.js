@@ -82,12 +82,12 @@ async function attemptPlace() {
     const hex = rgbaOrderToHex(i, rgbaOrder)
 
     Toastify({
-        text: `Trying to place pixel ${x}, ${y}... (${percentComplete}% complete, ${workRemaining} left)`,
+        text: `Trying to place pixel ${x}, ${y}, color ${hex},${COLOR_MAPPINGS[hex]}... (${percentComplete}% complete, ${workRemaining} left)`,
         duration: DEFAULT_TOAST_DURATION_MS,
     }).showToast()
 
     console.log(
-        `Trying to place pixel ${x}, ${y}, color ${hex},${COLOR_MAPPINGS[hex]},... (${percentComplete}% complete, ${workRemaining} left)`,
+        `Trying to place pixel ${x}, ${y}, color ${hex},${COLOR_MAPPINGS[hex]}... (${percentComplete}% complete, ${workRemaining} left)`,
     )
 
     // USED FOR MY LOCALHOST PROJECT
