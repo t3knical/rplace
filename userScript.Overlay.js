@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         Tekz rPlace Overlay
 // @namespace    https://github.com/t3knical/rplace
-// @version      0.6
+// @version      1.0.1
 // @description  overlay for r/place
-// @author       artillect#8709, jcb#1032, jumpinglizard#4404
+// @author       Sir Teknical
 // @match        https://rplace.tk/
 // @icon         https://rplace.tk/favicon.png
 // @grant        none
-// @updateURL    https://raw.githubusercontent.com/t3knical/rplace/main/userScript.overlay.js
-// @downloadURL  https://raw.githubusercontent.com/t3knical/rplace/main/userScript.overlay.js
+// @updateURL    https://raw.githubusercontent.com/t3knical/rplace/main/userScript.Overlay.js
+// @downloadURL  https://raw.githubusercontent.com/t3knical/rplace/main/userScript.Overlay.js
 // ==/UserScript==
 
 // options
