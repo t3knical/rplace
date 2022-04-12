@@ -41,7 +41,7 @@ window.addEventListener("load", () => {
 	// add the overlay to the page
 	let overlayParent = document.querySelector("#canvparent1"); // hijacking the snoo for our overlay
 
-	overlayParent.style.zIndex = "4";
+	overlayParent.style.zIndex = "3";
 	overlayParent.append(overlayImage);
 
 	// intercept position/scale changes
