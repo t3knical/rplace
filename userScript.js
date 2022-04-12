@@ -6,8 +6,8 @@
 // @author       Sir Teknical
 // @match        http://place.cslabs.clarkson.edu/*
 // @match        http://127.0.0.1:3000/*
-// @match        https://rplace.tk/
-// @icon         https://rplace.tk/favicon.png
+// @match        https://rplace.*
+// @icon         https://rplace.*
 // @require	     https://cdn.jsdelivr.net/npm/toastify-js
 // @resource     TOASTIFY_CSS https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css
 // @grant        GM_getResourceText
