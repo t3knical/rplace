@@ -31,7 +31,7 @@ var currentOrderCanvas2;
 var currentOrderCtx2;
 var currentPlaceCanvas;
 
-var cnc_url0 = 'https://raw.githubusercontent.com/t3knical/rplace/main/full_canvas_template_just_turkey_overlay.png';
+var cnc_url0 = 'https://raw.githubusercontent.com/t3knical/rplace/main/full_canvas_template_just_turkey.png';
 var cnc_url1 = 'https://raw.githubusercontent.com/t3knical/rplace/main/full_canvas_template.png';
 var cnc_url2 = 'https://raw.githubusercontent.com/t3knical/rplace/main/full_canvas_template_with_turkey.png';
 
