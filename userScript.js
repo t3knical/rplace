@@ -333,8 +333,8 @@ let getPendingWork = (work, rgbaOrder, rgbaCanvas) => {
         duration: DEFAULT_TOAST_DURATION_MS,
     }).showToast()
 
-    x = 210;
-    y = 448;
+    x = 193;
+    y = 595;
     z = 0.03;
     pos();
 
