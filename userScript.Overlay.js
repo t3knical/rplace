@@ -12,7 +12,7 @@
 // ==/UserScript==
 
 // options
-let OVERLAY_IMAGE = "https://raw.githubusercontent.com/t3knical/rplace/main/full_canvas_template_turkey_overlay.png";
+let OVERLAY_IMAGE = "https://raw.githubusercontent.com/t3knical/rplace/main/full_canvas_template_with_turkey_overlay.png";
 let CANVAS_SIZE = [2000, 2000];
 let MIN_ZOOM_LEVEL = 0.1; // minimum zoom level to display overlay
 
