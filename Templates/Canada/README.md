@@ -1,4 +1,4 @@
-# This is a TamperMonkey Script pixel placing bot for rplace.tk
+# TamperMonkey Script pixel placing bot for rplace.tk
 
 Canadian Flag @ x: 0 y: 356
 
