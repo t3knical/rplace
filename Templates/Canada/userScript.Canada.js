@@ -12,8 +12,8 @@
 // @resource     TOASTIFY_CSS https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css
 // @grant        GM_getResourceText
 // @grant        GM_addStyle
-// @updateURL    https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/userScript.Canada.js
-// @downloadURL  https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/userScript.Canada.js
+// @updateURL    n/a
+// @downloadURL  n/a
 // ==/UserScript==
 
 const DEFAULT_TOAST_DURATION_MS = 10000;
