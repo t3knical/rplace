@@ -1,6 +1,6 @@
 # This is a simple pixel placing bot for rplace.tk
 
-Canadian Flag @ x:175 y:484.
+Canadian Flag @ x: 0 y: 356
 
 Based on code from https://github.com/goatgoose/PlaceBot and https://github.com/rdeepak2002/reddit-place-script-2022.
 
