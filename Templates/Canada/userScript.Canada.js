@@ -8,7 +8,7 @@
 // @match        http://127.0.0.1:3000/*
 // @match        https://rplace.tk/
 // @icon         https://rplace.tk/favicon.png
-// @require	     https://cdn.jsdelivr.net/npm/toastify-js
+// @require      https://cdn.jsdelivr.net/npm/toastify-js
 // @resource     TOASTIFY_CSS https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css
 // @grant        GM_getResourceText
 // @grant        GM_addStyle
