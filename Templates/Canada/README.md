@@ -17,4 +17,4 @@ Based on code from https://github.com/goatgoose/PlaceBot and https://github.com/
 3. Install the userScript.js file for your country.
 
 ## Current Preview
-![alt text](https://github.com/t3knical/rplace/blob/main/current%20preview.png?raw=true)
+![alt text](https://github.com/t3knical/rplace/blob/main/Templates/Canada/current%20preview.png?raw=true)
