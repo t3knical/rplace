@@ -18,9 +18,9 @@
 
 const DEFAULT_TOAST_DURATION_MS = 10000;
 
-var startXpos = 210;
-var startYpos = 448;
-var startZoom = 0.03;
+var startXpos = 169;
+var startYpos = 454;
+var startZoom = 0.025;
 
 var socket1;
 
