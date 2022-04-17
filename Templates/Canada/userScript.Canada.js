@@ -66,7 +66,7 @@ async function attemptPlace() {
         setTimeout(attemptPlace, 1000) // probeer opnieuw in 2sec.
         return
     }
-    COOLDOWN = 0
+    //COOLDOWN = 0
     var ctx1
     try {
         ctx1 = await c
