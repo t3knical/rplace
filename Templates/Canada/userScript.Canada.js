@@ -18,9 +18,9 @@
 
 const DEFAULT_TOAST_DURATION_MS = 10000;
 
-var startXpos = 169;
-var startYpos = 454;
-var startZoom = 0.025;
+var startXpos = 210;
+var startYpos = 448;
+var startZoom = 0.03;
 
 var socket1;
 
@@ -66,6 +66,7 @@ async function attemptPlace() {
         setTimeout(attemptPlace, 1000) // probeer opnieuw in 2sec.
         return
     }
+    COOLDOWN = 0
     var ctx1
     try {
         ctx1 = await c
@@ -150,10 +151,12 @@ async function attemptPlace() {
     //ctx.fillRect(Math.floor(x), Math.floor(y), pixelSize, pixelSize);
     //socket.emit('load image', convertCanvasToImage(canvas).src);
 
+    //COOLDOWN = 0
+
     if (CD <= Date.now()) {
+        autoput(x1, y1, hex)
         Toastify({ text: `Trying to place pixel ${x1}, ${y1}, color ${hex},${COLOR_MAPPINGS[hex]}... (${percentComplete}% complete, ${workRemaining} left)`, duration: DEFAULT_TOAST_DURATION_MS, }).showToast()
         console.log(`Trying to place pixel ${x1}, ${y1}, color ${hex},${COLOR_MAPPINGS[hex]},... (${percentComplete}% complete, ${workRemaining} left)`)
-        autoput(x1, y1, hex)
     }
 
 
@@ -165,23 +168,23 @@ async function attemptPlace() {
     //var loadbuffer = load.buffer
     //console.log("load buffer: %s", place.innerHTML)
 
-    setTimeout(attemptPlace, 250);
+    setTimeout(attemptPlace, 50);
 
 };
 
 function autoput(X, Y, color) {
-    if (CD > Date.now()) return
-    x = X;
-    y = Y;
+    //if (CD > Date.now()) return
+    CD = Date.now() + COOLDOWN;
+    var x0 = X;
+    var y0 = Y;
     //z = 0.03;
     //pos();
     PEN = COLOR_MAPPINGS[color];
-    set(Math.floor(x), Math.floor(y), PEN);
+    set(Math.floor(x0), Math.floor(y0), PEN);
     audios.cooldownStart.run();
-    CD = Date.now() + COOLDOWN;
     let a = new DataView(new Uint8Array(6).buffer);
     a.setUint8(0, 4);
-    a.setUint32(1, Math.floor(x) + Math.floor(y) * WIDTH);
+    a.setUint32(1, Math.floor(x0) + Math.floor(y0) * WIDTH);
     a.setUint8(5, PEN);
     PEN = -1;
     ws.send(a);
@@ -194,7 +197,7 @@ function getCanvasFromUrl(url, canvas1, x = 0, y = 0, clearCanvas = false) {
     return new Promise((resolve, reject) => {
         let loadImage = (ctx1) => {
             var img = new Image()
-            img.crossOrigin = 'anonymous'
+            img.crossOrigin = 'anonymous | use-credentials'
             img.onload = () => {
                 if (clearCanvas) {
                     ctx1.clearRect(0, 0, canvas1.width, canvas1.height)
@@ -350,12 +353,16 @@ let getPendingWork = (work, rgbaOrder, rgbaCanvas) => {
     pos();
 
     currentOrderCtx0 = await getCanvasFromUrl(cnc_url0, currentOrderCanvas0, 0, 0, true,)
+    await new Promise(r => setTimeout(r, 1000));
     order0 = getRealWork(currentOrderCtx0.getImageData(0, 0, 2000, 2000).data)
     currentOrderCtx1 = await getCanvasFromUrl(cnc_url1, currentOrderCanvas1, 0, 0, true,)
+    await new Promise(r => setTimeout(r, 1000));
     order1 = getRealWork(currentOrderCtx1.getImageData(0, 0, 2000, 2000).data)
     currentOrderCtx2 = await getCanvasFromUrl(cnc_url2, currentOrderCanvas2, 0, 0, true,)
+    await new Promise(r => setTimeout(r, 1000));
     order2 = getRealWork(currentOrderCtx2.getImageData(0, 0, 2000, 2000).data)
     currentOrderCtx3 = await getCanvasFromUrl(cnc_url3, currentOrderCanvas3, 0, 0, true,)
+    await new Promise(r => setTimeout(r, 1000));
     order3 = getRealWork(currentOrderCtx3.getImageData(0, 0, 2000, 2000).data)
 
     Toastify({
@@ -364,7 +371,7 @@ let getPendingWork = (work, rgbaOrder, rgbaCanvas) => {
     }).showToast()
 
     Toastify({
-        text: `New map loaded, ${order1.length} pixels in total`,
+        text: `New map loaded, ${order0.length} pixels in total`,
         duration: DEFAULT_TOAST_DURATION_MS,
     }).showToast()
 
