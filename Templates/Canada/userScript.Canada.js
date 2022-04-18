@@ -6,9 +6,10 @@
 // @author       Sir Teknical
 // @match        http://place.cslabs.clarkson.edu/*
 // @match        http://127.0.0.1:3000/*
-// @match        https://rplace.tk/
+// @match        https://rplace.tk
+// @match        https://rplace.t3knical.com
 // @icon         https://rplace.tk/favicon.png
-// @require      https://cdn.jsdelivr.net/npm/toastify-js
+// @require	     https://cdn.jsdelivr.net/npm/toastify-js
 // @resource     TOASTIFY_CSS https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css
 // @grant        GM_getResourceText
 // @grant        GM_addStyle
@@ -62,11 +63,11 @@ function rgbToHex(r, g, b) {
 };
 
 async function attemptPlace() {
+
     if (order0 == undefined || order1 == undefined || order2 == undefined || order3 == undefined) {
         setTimeout(attemptPlace, 1000) // probeer opnieuw in 2sec.
         return
     }
-    //COOLDOWN = 0
     var ctx1
     try {
         ctx1 = await c
@@ -156,32 +157,21 @@ async function attemptPlace() {
     if (CD <= Date.now()) {
         autoput(x1, y1, hex)
         Toastify({ text: `Trying to place pixel ${x1}, ${y1}, color ${hex},${COLOR_MAPPINGS[hex]}... (${percentComplete}% complete, ${workRemaining} left)`, duration: DEFAULT_TOAST_DURATION_MS, }).showToast()
-        console.log(`Trying to place pixel ${x1}, ${y1}, color ${hex},${COLOR_MAPPINGS[hex]},... (${percentComplete}% complete, ${workRemaining} left)`)
+        console.log(`Trying to place pixel ${x1}, ${y1}, color ${hex},${COLOR_MAPPINGS[hex]},... (${percentComplete}% complete, ${workRemaining} left)`)        
     }
 
-
-    //USED FOR
-    //sendColorUpdate(x, y, COLOR_MAPPINGS[hex]);
-
-    //const res = await place(x, y, COLOR_MAPPINGS[hex])
-    //const data = await res.json()
-    //var loadbuffer = load.buffer
-    //console.log("load buffer: %s", place.innerHTML)
-
-    setTimeout(attemptPlace, 50);
+    setTimeout(attemptPlace, 250);
 
 };
 
 function autoput(X, Y, color) {
     //if (CD > Date.now()) return
     CD = Date.now() + COOLDOWN;
-    var x0 = X;
-    var y0 = Y;
-    //z = 0.03;
-    //pos();
+    x0 = X;
+    y0 = Y;
     PEN = COLOR_MAPPINGS[color];
     set(Math.floor(x0), Math.floor(y0), PEN);
-    audios.cooldownStart.run();
+    audios.cooldownStart.run();    
     let a = new DataView(new Uint8Array(6).buffer);
     a.setUint8(0, 4);
     a.setUint32(1, Math.floor(x0) + Math.floor(y0) * WIDTH);
@@ -218,18 +208,25 @@ function getCanvasFromUrl(url, canvas1, x = 0, y = 0, clearCanvas = false) {
     })
 };
 
-window.addEventListener('load', function () {
-    //currentOrderCtx = getCanvasFromUrl(cnc_url, currentOrderCanvas, 0, 0, true)
-    //console.log("userScript - currentOrderCtx: %O", currentOrderCtx)
-    //order = getRealWork(currentOrderCtx.result.canvas.getImageData(0, 0, 2000, 2000).data)
+ws.onclose = () => {
+    if(CD != Infinity)return location.replace("https://rplace.tk");
+    //Something went wrong...
+    CD = 1e100;
+}
 
-    console.log("userScript - canvas: %O", theCanvas);
-    console.log("userScript - ctx: %O", theCTX);
+setTimeout(() =>
+{
+  location.replace("https://rplace.tk");
+}, 2 * 60 * 60 * 1000);
 
-    console.log("userScript - Window load has happened...");
 
-    //attemptPlace();
-});
+setInterval(() =>
+{
+    if(!load.buffer && CD >= 1e100 && CD != Infinity)
+    {
+        location.replace("https://rplace.tk");
+    }
+}, 300);
 
 const COLOR_MAPPINGS = {
     '#6D001A': 0,     // Pinkish Red
@@ -287,7 +284,7 @@ let getPendingWork = (work, rgbaOrder, rgbaCanvas) => {
 };
 
 (async function () {
-    await new Promise(r => setTimeout(r, 10000));
+    await new Promise(r => setTimeout(r, 15000));
 
     GM_addStyle(GM_getResourceText('TOASTIFY_CSS'))
 
@@ -353,25 +350,30 @@ let getPendingWork = (work, rgbaOrder, rgbaCanvas) => {
     pos();
 
     currentOrderCtx0 = await getCanvasFromUrl(cnc_url0, currentOrderCanvas0, 0, 0, true,)
-    await new Promise(r => setTimeout(r, 1000));
     order0 = getRealWork(currentOrderCtx0.getImageData(0, 0, 2000, 2000).data)
-    currentOrderCtx1 = await getCanvasFromUrl(cnc_url1, currentOrderCanvas1, 0, 0, true,)
-    await new Promise(r => setTimeout(r, 1000));
-    order1 = getRealWork(currentOrderCtx1.getImageData(0, 0, 2000, 2000).data)
-    currentOrderCtx2 = await getCanvasFromUrl(cnc_url2, currentOrderCanvas2, 0, 0, true,)
-    await new Promise(r => setTimeout(r, 1000));
-    order2 = getRealWork(currentOrderCtx2.getImageData(0, 0, 2000, 2000).data)
-    currentOrderCtx3 = await getCanvasFromUrl(cnc_url3, currentOrderCanvas3, 0, 0, true,)
-    await new Promise(r => setTimeout(r, 1000));
-    order3 = getRealWork(currentOrderCtx3.getImageData(0, 0, 2000, 2000).data)
-
     Toastify({
-        text: 'Done getting template from github...',
+        text: 'Done getting template1 from github, ${order0.length} pixels in total...',
         duration: DEFAULT_TOAST_DURATION_MS,
     }).showToast()
 
+    currentOrderCtx1 = await getCanvasFromUrl(cnc_url1, currentOrderCanvas1, 0, 0, true,)
+    order1 = getRealWork(currentOrderCtx1.getImageData(0, 0, 2000, 2000).data)
     Toastify({
-        text: `New map loaded, ${order0.length} pixels in total`,
+        text: 'Done getting template1 from github, ${order1.length} pixels in total...',
+        duration: DEFAULT_TOAST_DURATION_MS,
+    }).showToast()
+
+    currentOrderCtx2 = await getCanvasFromUrl(cnc_url2, currentOrderCanvas2, 0, 0, true,)
+    order2 = getRealWork(currentOrderCtx2.getImageData(0, 0, 2000, 2000).data)
+    Toastify({
+        text: 'Done getting template1 from github, ${order2.length} pixels in total...',
+        duration: DEFAULT_TOAST_DURATION_MS,
+    }).showToast()
+
+    currentOrderCtx3 = await getCanvasFromUrl(cnc_url3, currentOrderCanvas3, 0, 0, true,)
+    order3 = getRealWork(currentOrderCtx3.getImageData(0, 0, 2000, 2000).data)
+    Toastify({
+        text: 'Done getting template1 from github, ${order3.length} pixels in total...',
         duration: DEFAULT_TOAST_DURATION_MS,
     }).showToast()
 
