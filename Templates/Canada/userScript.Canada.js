@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         Tekz Pixel Bot v2
+// @name         Tekz Pixel Bot v2.0.1
 // @namespace    https://github.com/t3knical/rplace
-// @version      2.0.0
+// @version      2.0.1
 // @description  overlay for r/place, For Canada!
 // @author       Sir Teknical
 // @match        http://place.cslabs.clarkson.edu/*
