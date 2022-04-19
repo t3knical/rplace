@@ -328,7 +328,7 @@ let getPendingWork = (work, rgbaOrder, rgbaCanvas) => {
     currentOrderCtx0 = currentOrderCanvas0.getContext('2d');
     currentOrderCtx1 = currentOrderCanvas1.getContext('2d');
     currentOrderCtx2 = currentOrderCanvas2.getContext('2d');
-    currentOrderCtx3 = currentOrderCanvas2.getContext('2d');
+    currentOrderCtx3 = currentOrderCanvas3.getContext('2d');
 
     currentPlaceCanvas = document.createElement('CANVAS');
 
