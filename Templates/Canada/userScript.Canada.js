@@ -242,7 +242,7 @@ function getCanvasFromUrl(url, canvas1, x = 0, y = 0, clearCanvas = false) {
         loadImage(canvas1.getContext('2d'))
     })
 };
-
+/*
 ws.onclose = () => {
     if (CD != Infinity) return location.replace("https://rplace.tk");
     //Something went wrong...
@@ -259,7 +259,7 @@ setInterval(() => {
         location.replace("https://rplace.tk");
     }
 }, 300);
-
+*/
 const COLOR_MAPPINGS = {
     '#6D001A': 0,     // Pinkish Red
     '#BE0039': 1,     // Dark Red
