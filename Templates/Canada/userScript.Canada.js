@@ -13,8 +13,8 @@
 // @resource     TOASTIFY_CSS https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css
 // @grant        GM_getResourceText
 // @grant        GM_addStyle
-// @updateURL    https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Anime/userScript.js
-// @downloadURL  https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Anime/userScript.js
+// @updateURL    https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/userScript.Canada.js
+// @downloadURL  https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/userScript.Canada.js
 // ==/UserScript==
 
 const DEFAULT_TOAST_DURATION_MS = 10000;
