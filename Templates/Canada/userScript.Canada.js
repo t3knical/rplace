@@ -32,26 +32,26 @@ var order3 = undefined;
 
 var accessToken;
 
-var currentOrderCanvas0 = undefined;;
-var currentOrderCtx0 = undefined;;
-var currentOrderCanvas1 = undefined;;
-var currentOrderCtx1 = undefined;;
-var currentOrderCanvas2 = undefined;;
-var currentOrderCtx2 = undefined;;
-var currentOrderCanvas3 = undefined;;
-var currentOrderCtx3 = undefined;;
+var currentOrderCanvas0 = undefined;
+var currentOrderCtx0 = undefined;
+var currentOrderCanvas1 = undefined;
+var currentOrderCtx1 = undefined;
+var currentOrderCanvas2 = undefined;
+var currentOrderCtx2 = undefined;
+var currentOrderCanvas3 = undefined;
+var currentOrderCtx3 = undefined;
 
-var rgbaOrder0 = undefined;;
-var rgbaOrder1 = undefined;;
-var rgbaOrder2 = undefined;;
-var rgbaOrder3 = undefined;;
+var rgbaOrder0 = undefined;
+var rgbaOrder1 = undefined;
+var rgbaOrder2 = undefined;
+var rgbaOrder3 = undefined;
 
-var work0 = undefined;;
-var work1 = undefined;;
-var work2 = undefined;;
-var work3 = undefined;;
+var work0 = undefined;
+var work1 = undefined;
+var work2 = undefined;
+var work3 = undefined;
 
-var rgbaCanvas = undefined;;
+var rgbaCanvas = undefined;
 
 var currentPlaceCanvas = undefined;
 
