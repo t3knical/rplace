@@ -12,7 +12,7 @@
 // ==/UserScript==
 
 // options
-let OVERLAY_IMAGE = "https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Armenia/full_canvas_template_aermina_flag_overlay.png";
+let OVERLAY_IMAGE = "https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Armenia/full_canvas_template_armenia_flag_overlay.png";
 let CANVAS_SIZE = [2000, 2000];
 let MIN_ZOOM_LEVEL = 0.1; // minimum zoom level to display overlay
 
