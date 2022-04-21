@@ -12,8 +12,8 @@
 // @resource     TOASTIFY_CSS https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css
 // @grant        GM_getResourceText
 // @grant        GM_addStyle
-// @updateURL    https://github.com/t3knical/rplace/raw/main/Templates/Canada/Canada.Script.user.js
-// @downloadURL  https://github.com/t3knical/rplace/raw/main/Templates/Canada/Canada.Script.user.js
+// @updateURL    https://github.com/t3knical/rplace/raw/main/Templates/Pepe/Pepe.Script.user.js
+// @downloadURL  https://github.com/t3knical/rplace/raw/main/Templates/Pepe/Pepe.Script.user.js
 // ==/UserScript==
 
 // dialog DIV
@@ -152,7 +152,7 @@ var rgbaCanvas = undefined;
 
 var currentPlaceCanvas = undefined;
 
-var cnc_url0 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/full_canvas_template_canada_flag.png';
+var cnc_url0 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Pepe/full_canvas_template_pepe.png';
 var cnc_url1 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/full_canvas_template_canada_full.png';
 var cnc_url2 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/full_canvas_template_just_animes.png';
 var cnc_url3 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/full_canvas_template_with_allies.png';
