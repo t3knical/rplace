@@ -47,7 +47,7 @@ $("head").append(
 // options for dialog, for help look in jQuery docs
 var opt = {
     width: 350,
-    height: 350,
+    height: 150,
     minWidth: 350,
     minHeight: 150,
     modal: false,
@@ -276,7 +276,6 @@ let getPendingWork = (work, rgbaOrder, rgbaCanvas) => {
     {
         await new Promise(r => setTimeout(r, 150));
     }
-
     GM_addStyle(GM_getResourceText('TOASTIFY_CSS'))
 
     currentOrderCanvas0 = document.createElement('CANVAS');
