@@ -272,7 +272,10 @@ let getPendingWork = (work, rgbaOrder, rgbaCanvas) => {
 };
 
 (async function () {
-    await new Promise(r => setTimeout(r, 3000));
+    while(document.getElementById('place').textContent != "Place a tile")
+    {
+        await new Promise(r => setTimeout(r, 150));
+    }
 
     GM_addStyle(GM_getResourceText('TOASTIFY_CSS'))
 
