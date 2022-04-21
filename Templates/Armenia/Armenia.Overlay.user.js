@@ -7,8 +7,8 @@
 // @match        https://rplace.tk/
 // @icon         https://rplace.tk/favicon.png
 // @grant        none
-// @updateURL    https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Armenia/userScript.Overlay.js
-// @downloadURL  https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Armenia/userScript.Overlay.js
+// @updateURL    https://github.com/t3knical/rplace/raw/main/Templates/Armenia/Armenia.Overlay.user.js
+// @downloadURL  https://github.com/t3knical/rplace/raw/main/Templates/Armenia/Armenia.Overlay.user.js
 // ==/UserScript==
 
 // options
