@@ -4,18 +4,115 @@
 // @version      2.0.5
 // @description  overlay for r/place, For Canada!
 // @author       Sir Teknical
-// @match        http://place.cslabs.clarkson.edu/*
-// @match        http://127.0.0.1:3000/*
-// @match        https://rplace.tk
-// @match        https://rplace.t3knical.com
-// @icon         https://rplace.tk/favicon.png
+// @match        https://rplace.t3knical.com/
+// @match        https://rplace.tk/
 // @require	     https://cdn.jsdelivr.net/npm/toastify-js
+// @require      http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
+// @require      http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js
 // @resource     TOASTIFY_CSS https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css
 // @grant        GM_getResourceText
 // @grant        GM_addStyle
 // @updateURL    https://github.com/t3knical/rplace/raw/main/Templates/Canada/Canada.Script.user.js
 // @downloadURL  https://github.com/t3knical/rplace/raw/main/Templates/Canada/Canada.Script.user.js
 // ==/UserScript==
+
+// dialog DIV
+$("body").append('<div id="mydialog" style="display: none">'
+    + '<font style="font-size: 14px"><u>Current Template:</u></font> <font id="currentTemplate" style="font-size: 12px"></font>'
+    + '<br /><br />'
+    + '<font style="font-size: 14px"><u>Last Placed Pixel (x, y):</u></font> <font id="lastPlacedPixel" style="font-size: 12px"></font>'
+    + '<br /><br />'
+    + '<font style="font-size: 14px"><u>Pixels Left To Work On:</u></font> <font id="pixelesLeft" style="font-size: 12px"></font>'
+    + '<br /><br />'
+    + '<font style="font-size: 14px"><u>Current Cooldown:</u></font> <font id="currentCooldown" style="font-size: 12px"></font>'
+    + '</div>');
+
+$("head").append(
+    '<link '
+    + 'href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/le-frog/jquery-ui.min.css" '
+    + 'rel="stylesheet" type="text/css">'
+);
+// custom CSS for dialog
+$("head").append(
+    '<style type="text/css">'
+    + '#mydialog { margin: 0; border: 2; height:100%; max-height:100%; color:#000 !important;top: 0.5em; left: 0.5em; outline: 0 none; padding: 0 !important; font-family: Verdana,Arial,sans-serif; font-size: 1em; font-size: 12px; vertical-align: baseline; line-height: 1; }'
+    + '#mydialog table { border-collapse: collapse; border-spacing: 0; }'
+    + '.ui-widget-header { background: #b0de78; border: 2; color: #fff; font-weight: normal; }'
+    + '.ui-dialog-titlebar { padding: 0.5em .5em; position: relative; font-family: Verdana,Arial,sans-serif; font-size: 1em; }'
+    + '.no-close .ui-dialog-titlebar-close { display: none; }'
+    + '.ui-widget-content { background: #1b6a00 scroll 0 0; border: 0 none; overflow: none; position: relative; padding: 0 !important; margin: 0; }'
+    + '</style>'
+);
+
+// options for dialog, for help look in jQuery docs
+var opt = {
+    width: 350,
+    height: 350,
+    minWidth: 350,
+    minHeight: 150,
+    modal: false,
+    autoOpen: false,
+    title: "Tekz, rPlace Pixel Placer!",
+    dialogClass: "no-close",
+    zIndex: 10
+};
+
+$("#mydialog").dialog(opt).dialog("open");
+
+// alternative way to position a dialog
+$("#mydialog").parent().css({
+    position: "fixed",
+    top: "50px",
+    left: "10px",
+    width: "350px"
+});
+
+// Minimal TamperMonkey template for keypress-triggered events
+(function () {
+    'use strict';
+    function onAltQ() {
+        console.log("Alt Q pressed!");
+    }
+    function onTest() {
+        document.getElementById('currentTemplate').textContent = "<b>Current Template:</b> test.png";
+        document.getElementById('lastPlacedPixel').textContent = "<u>Last Placed Pixel (x, y):</u> 324, 354";
+        document.getElementById('pixelesLeft').textContent = "<u>Pixels Left To Work On:</u> 3452";
+    }
+    function toggleUI() {
+        $(function () {
+            var isDialogOpen = $("#mydialog").dialog("isOpen");// == false) ? $( "#mydialog").dialog("open") : $("#dialog-5").dialog("close");
+
+            if (isDialogOpen) {
+                $("#mydialog").dialog("close");
+            }
+            else {
+                $("#mydialog").dialog(opt).dialog("open");
+                $("#mydialog").parent().css({
+                    position: "fixed",
+                    top: "50px",
+                    left: "10px",
+                    width: "350px"
+                });
+            }
+            console.log("isdialogopen: " + isDialogOpen);
+        });
+    }
+    function onKeydown(evt) {
+        // Use https://keycode.info/ to get keys
+        if (evt.keyCode == 84) { // t keypress
+            onTest();
+        }
+
+        if (evt.keyCode == 81) { // q keypress
+            onAltQ();
+        }
+
+        if (evt.keyCode == 192) { // `o keypress
+            toggleUI();
+        }
+    }
+    document.addEventListener('keydown', onKeydown, true);
+})();
 
 const DEFAULT_TOAST_DURATION_MS = 10000;
 
@@ -60,13 +157,6 @@ var cnc_url1 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates
 var cnc_url2 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/full_canvas_template_just_animes.png';
 var cnc_url3 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/full_canvas_template_with_allies.png';
 
-var theCanvas;
-var theCTX;
-
-//var HOST = location.protocol + "//" + location.hostname;
-//var WS = "ws://" + location.hostname + ":8081/ws";
-//var ws;
-
 function rgbToHex(r, g, b) {
     return (
         '#' +
@@ -74,136 +164,11 @@ function rgbToHex(r, g, b) {
     )
 };
 
-async function attemptPlace() {
-
-    if (order0 == undefined || order1 == undefined || order2 == undefined || order3 == undefined) {
-        setTimeout(attemptPlace, 1000) // probeer opnieuw in 2sec.
-        return
-    }
-    if (rgbaOrder0 == undefined || rgbaOrder1 == undefined || rgbaOrder2 == undefined || rgbaOrder3 == undefined) {
-        rgbaOrder0 = currentOrderCtx0.getImageData(0, 0, 2000, 2000).data
-        rgbaOrder1 = currentOrderCtx1.getImageData(0, 0, 2000, 2000).data
-        rgbaOrder2 = currentOrderCtx2.getImageData(0, 0, 2000, 2000).data
-        rgbaOrder3 = currentOrderCtx3.getImageData(0, 0, 2000, 2000).data
-        setTimeout(attemptPlace, 1000) // probeer opnieuw in 2sec.
-        return
-    }
-    var ctx1
-    try {
-        ctx1 = await c
-
-    } catch (e) {
-        console.warn('Error retrieving map: ', e)
-        Toastify({
-            text: 'Error retrieving map. Try again in 2.5 sec...',
-            duration: DEFAULT_TOAST_DURATION_MS,
-        }).showToast()
-        setTimeout(attemptPlace, 2500) // Try again in 2.5 sec.
-        return
-    }
-
-
-    if (CD <= Date.now()) {
-        rgbaCanvas = ctx1.getImageData(0, 0, 2000, 2000).data
-        work0 = getPendingWork(order0, rgbaOrder0, rgbaCanvas)
-
-        if (work0.length === 0) {
-            work1 = getPendingWork(order1, rgbaOrder1, rgbaCanvas)
-            if (work1.length === 0) {
-                work2 = getPendingWork(order2, rgbaOrder2, rgbaCanvas)
-                if (work2.length === 0) {
-                    work3 = getPendingWork(order3, rgbaOrder3, rgbaCanvas)
-                }
-            }
-        }
-
-        if (work0.length === 0 && work1.length === 0 && work2.length === 0 && work3.length === 0) {
-            Toastify({
-                text: `All pixels are already in the right place for all imgs! Try again in 5 sec...`,
-                duration: 5000,
-            }).showToast()
-
-            setTimeout(attemptPlace, 5000) // Try again in 5 secs.
-            return
-        }
-
-        var percentComplete;
-        var workRemaining;
-        var idx;
-        var i;
-        var x1;
-        var y1;
-        var hex;
-        var currentcanvas;
-
-        if (work0.length > 0) {
-            percentComplete = 100 - Math.ceil((work0.length * 100) / order0.length)
-            workRemaining = work0.length
-            idx = Math.floor(Math.random() * work0.length)
-            i = work0[idx]
-            x1 = i % 2000
-            y1 = Math.floor(i / 2000)
-            hex = rgbaOrderToHex(i, rgbaOrder0)
-            Toastify({
-                text: `Found a misplace pixel @ ${x1}, ${y1}, on template 1!`,
-                duration: 5000,
-            }).showToast()
-        }
-        else if (work1.length > 0) {
-            percentComplete = 100 - Math.ceil((work1.length * 100) / order1.length)
-            workRemaining = work1.length
-            idx = Math.floor(Math.random() * work1.length)
-            i = work1[idx]
-            x1 = i % 2000
-            y1 = Math.floor(i / 2000)
-            hex = rgbaOrderToHex(i, rgbaOrder1)
-            Toastify({
-                text: `Found a misplace pixel @ ${x1}, ${y1}, on template 2!`,
-                duration: 5000,
-            }).showToast()
-        }
-        else if (work2.length > 0) {
-            percentComplete = 100 - Math.ceil((work2.length * 100) / order2.length)
-            workRemaining = work2.length
-            idx = Math.floor(Math.random() * work2.length)
-            i = work2[idx]
-            x1 = i % 2000
-            y1 = Math.floor(i / 2000)
-            hex = rgbaOrderToHex(i, rgbaOrder2)
-            Toastify({
-                text: `Found a misplace pixel @ ${x1}, ${y1}, on template 3!`,
-                duration: 5000,
-            }).showToast()
-        }
-        else if (work3.length > 0) {
-            percentComplete = 100 - Math.ceil((work3.length * 100) / order3.length)
-            workRemaining = work3.length
-            idx = Math.floor(Math.random() * work3.length)
-            i = work3[idx]
-            x1 = i % 2000
-            y1 = Math.floor(i / 2000)
-            hex = rgbaOrderToHex(i, rgbaOrder3)
-            Toastify({
-                text: `Found a misplace pixel @ ${x1}, ${y1}, on template 4!`,
-                duration: 5000,
-            }).showToast()
-        }
-
-
-        autoput(x1, y1, hex)
-        Toastify({ text: `Trying to place pixel ${x1}, ${y1}, color ${hex},${COLOR_MAPPINGS[hex]}... (${percentComplete}% complete, ${workRemaining} left)`, duration: DEFAULT_TOAST_DURATION_MS, }).showToast()
-        console.log(`Trying to place pixel ${x1}, ${y1}, color ${hex},${COLOR_MAPPINGS[hex]},... (${percentComplete}% complete, ${workRemaining} left)`)
-    }
-
-    setTimeout(attemptPlace, 250);
-
-};
-
 function autoput(X, Y, color) {
     //if (CD > Date.now()) return
     CD = Date.now() + COOLDOWN;
-    x0 = X;
-    y0 = Y;
+    var x0 = X;
+    var y0 = Y;
     PEN = COLOR_MAPPINGS[color];
     set(Math.floor(x0), Math.floor(y0), PEN);
     audios.cooldownStart.run();
@@ -242,24 +207,7 @@ function getCanvasFromUrl(url, canvas1, x = 0, y = 0, clearCanvas = false) {
         loadImage(canvas1.getContext('2d'))
     })
 };
-/*
-ws.onclose = () => {
-    if (CD != Infinity) return location.replace("https://rplace.tk");
-    //Something went wrong...
-    CD = 1e100;
-}
 
-setTimeout(() => {
-    location.replace("https://rplace.tk");
-}, 2 * 60 * 60 * 1000);
-
-
-setInterval(() => {
-    if (!load.buffer && CD >= 1e100 && CD != Infinity) {
-        location.replace("https://rplace.tk");
-    }
-}, 300);
-*/
 const COLOR_MAPPINGS = {
     '#6D001A': 0,     // Pinkish Red
     '#BE0039': 1,     // Dark Red
@@ -305,6 +253,14 @@ let getRealWork = (rgbaOrder) => {
     return order
 };
 
+function ensureRange(value, min, max) {
+   return Math.min(Math.max(value, min), max);
+}
+
+function inRange(value, min, max) {
+   return (value>= min) && (value<= max);
+}
+
 let getPendingWork = (work, rgbaOrder, rgbaCanvas) => {
     let pendingWork = []
     for (const i of work) {
@@ -316,7 +272,7 @@ let getPendingWork = (work, rgbaOrder, rgbaCanvas) => {
 };
 
 (async function () {
-    await new Promise(r => setTimeout(r, 15000));
+    await new Promise(r => setTimeout(r, 3000));
 
     GM_addStyle(GM_getResourceText('TOASTIFY_CSS'))
 
@@ -411,3 +367,127 @@ let getPendingWork = (work, rgbaOrder, rgbaCanvas) => {
 
     attemptPlace()
 })()
+
+async function attemptPlace() {
+    if (order0 == undefined || order1 == undefined || order2 == undefined || order3 == undefined) {
+        setTimeout(attemptPlace, 1000) // probeer opnieuw in 2sec.
+        return
+    }
+    if (rgbaOrder0 == undefined || rgbaOrder1 == undefined || rgbaOrder2 == undefined || rgbaOrder3 == undefined) {
+        rgbaOrder0 = currentOrderCtx0.getImageData(0, 0, 2000, 2000).data
+        rgbaOrder1 = currentOrderCtx1.getImageData(0, 0, 2000, 2000).data
+        rgbaOrder2 = currentOrderCtx2.getImageData(0, 0, 2000, 2000).data
+        rgbaOrder3 = currentOrderCtx3.getImageData(0, 0, 2000, 2000).data
+        setTimeout(attemptPlace, 1000) // probeer opnieuw in 2sec.
+        return
+    }
+    var ctx1
+    try {
+        ctx1 = await c
+        var coolDownTest = ensureRange(Math.floor((CD - Date.now()) / 1000), 0, 10)
+        document.getElementById('currentCooldown').textContent = `${coolDownTest} sec(s)`;
+
+    } catch (e) {
+        console.warn('Error retrieving map: ', e)
+        Toastify({
+            text: 'Error retrieving map. Try again in 2.5 sec...',
+            duration: DEFAULT_TOAST_DURATION_MS,
+        }).showToast()
+        setTimeout(attemptPlace, 2500) // Try again in 2.5 sec.
+        return
+    }
+
+    if(location.origin === 'https://rplace.t3knical.com' && COOLDOWN > 1.5)
+    {
+        COOLDOWN = 1.5;
+    }
+
+    if (CD <= Date.now()) {
+        rgbaCanvas = ctx1.getImageData(0, 0, 2000, 2000).data
+        work0 = getPendingWork(order0, rgbaOrder0, rgbaCanvas)
+
+        if (work0.length === 0) {
+            work1 = getPendingWork(order1, rgbaOrder1, rgbaCanvas)
+            if (work1.length === 0) {
+                work2 = getPendingWork(order2, rgbaOrder2, rgbaCanvas)
+                if (work2.length === 0) {
+                    work3 = getPendingWork(order3, rgbaOrder3, rgbaCanvas)
+                }
+            }
+        }
+
+        if (work0.length === 0 && work1.length === 0 && work2.length === 0 && work3.length === 0) {
+            document.getElementById('currentTemplate').textContent = `None - All Work Is Complete!`;
+            document.getElementById('lastPlacedPixel').textContent = `${0}, ${0}`;
+            document.getElementById('pixelesLeft').textContent = `All ${order3.length} Pixels Are Fixed!`;
+            CD = Date.now() + 5000;
+
+            setTimeout(attemptPlace, 500) // Try again in 500 ms.
+            return
+        }
+
+        var percentComplete;
+        var workRemaining;
+        var idx;
+        var i;
+        var x1;
+        var y1;
+        var hex;
+        var currentcanvas;
+
+        if (work0.length > 0) {
+            percentComplete = 100 - Math.ceil((work0.length * 100) / order0.length)
+            workRemaining = work0.length
+            idx = Math.floor(Math.random() * work0.length)
+            i = work0[idx]
+            x1 = i % 2000
+            y1 = Math.floor(i / 2000)
+            hex = rgbaOrderToHex(i, rgbaOrder0)
+            document.getElementById('currentTemplate').textContent = `Template 1 - ${percentComplete}% Complete!`;
+            document.getElementById('lastPlacedPixel').textContent = `${x1}, ${y1}`;
+            document.getElementById('pixelesLeft').textContent = `${workRemaining}/${order0.length}`;
+        }
+        else if (work1.length > 0) {
+            percentComplete = 100 - Math.ceil((work1.length * 100) / order1.length)
+            workRemaining = work1.length
+            idx = Math.floor(Math.random() * work1.length)
+            i = work1[idx]
+            x1 = i % 2000
+            y1 = Math.floor(i / 2000)
+            hex = rgbaOrderToHex(i, rgbaOrder1)
+            document.getElementById('currentTemplate').textContent = `Template 2 - ${percentComplete}% Complete!`;
+            document.getElementById('lastPlacedPixel').textContent = `${x1}, ${y1}`;
+            document.getElementById('pixelesLeft').textContent = `${workRemaining}/${order1.length}`;
+        }
+        else if (work2.length > 0) {
+            percentComplete = 100 - Math.ceil((work2.length * 100) / order2.length)
+            workRemaining = work2.length
+            idx = Math.floor(Math.random() * work2.length)
+            i = work2[idx]
+            x1 = i % 2000
+            y1 = Math.floor(i / 2000)
+            hex = rgbaOrderToHex(i, rgbaOrder2)
+            document.getElementById('currentTemplate').textContent = `Template 3 - ${percentComplete}% Complete!`;
+            document.getElementById('lastPlacedPixel').textContent = `${x1}, ${y1}`;
+            document.getElementById('pixelesLeft').textContent = `${workRemaining}/${order2.length}`;
+        }
+        else if (work3.length > 0) {
+            percentComplete = 100 - Math.ceil((work3.length * 100) / order3.length)
+            workRemaining = work3.length
+            idx = Math.floor(Math.random() * work3.length)
+            i = work3[idx]
+            x1 = i % 2000
+            y1 = Math.floor(i / 2000)
+            hex = rgbaOrderToHex(i, rgbaOrder3)
+            document.getElementById('currentTemplate').textContent = `Template 4 - ${percentComplete}% Complete!`;
+            document.getElementById('lastPlacedPixel').textContent = `${x1}, ${y1}`;
+            document.getElementById('pixelesLeft').textContent = `${workRemaining}/${order3.length}`;
+        }
+        autoput(x1, y1, hex);
+        //Toastify({ text: `Trying to place pixel ${x1}, ${y1}, color ${hex},${COLOR_MAPPINGS[hex]}... (${percentComplete}% complete, ${workRemaining} left)`, duration: DEFAULT_TOAST_DURATION_MS, }).showToast()
+        console.log(`Trying to place pixel ${x1}, ${y1}, color ${hex},${COLOR_MAPPINGS[hex]},... (${percentComplete}% complete, ${workRemaining} left)`);
+    }
+
+    setTimeout(attemptPlace, 250);
+
+};
