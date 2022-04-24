@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         Tekz Pixel Bot v2.0.2
+// @name         Tekz Pixel Bot v2.0.5
 // @namespace    https://github.com/t3knical/rplace
-// @version      2.0.0
+// @version      2.0.5
 // @description  overlay for r/place, For Armenia and Allies!
 // @author       Sir Teknical
 // @match        https://rplace.t3knical.com/
@@ -12,8 +12,8 @@
 // @resource     TOASTIFY_CSS https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css
 // @grant        GM_getResourceText
 // @grant        GM_addStyle
-// @updateURL    https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Aremenia/Armenia.Script.user.js
-// @downloadURL  https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Aremenia/Armenia.Script.user.js
+// @updateURL    https://github.com/t3knical/rplace/raw/main/Templates/Canada/Canada.Script.user.js
+// @downloadURL  https://github.com/t3knical/rplace/raw/main/Templates/Canada/Canada.Script.user.js
 // ==/UserScript==
 
 // dialog DIV
@@ -47,7 +47,7 @@ $("head").append(
 // options for dialog, for help look in jQuery docs
 var opt = {
     width: 350,
-    height: 350,
+    height: 150,
     minWidth: 350,
     minHeight: 150,
     modal: false,
