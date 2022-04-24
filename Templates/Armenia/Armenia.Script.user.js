@@ -126,6 +126,7 @@ var order0 = undefined;
 var order1 = undefined;
 var order2 = undefined;
 var order3 = undefined;
+var order4 = undefined;
 
 var accessToken;
 
@@ -137,16 +138,20 @@ var currentOrderCanvas2 = undefined;
 var currentOrderCtx2 = undefined;
 var currentOrderCanvas3 = undefined;
 var currentOrderCtx3 = undefined;
+var currentOrderCanvas4 = undefined;
+var currentOrderCtx4 = undefined;
 
 var rgbaOrder0 = undefined;
 var rgbaOrder1 = undefined;
 var rgbaOrder2 = undefined;
 var rgbaOrder3 = undefined;
+var rgbaOrder4 = undefined;
 
 var work0 = undefined;
 var work1 = undefined;
 var work2 = undefined;
 var work3 = undefined;
+var work4 = undefined;
 
 var rgbaCanvas = undefined;
 
@@ -156,6 +161,7 @@ var cnc_url0 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates
 var cnc_url1 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/full_canvas_template_canada_full.png';
 var cnc_url2 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/full_canvas_template_just_animes.png';
 var cnc_url3 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/full_canvas_template_with_allies.png';
+var cnc_url4 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/full_canvas_template_the_blackout.png';
 
 function rgbToHex(r, g, b) {
     return (
@@ -272,19 +278,23 @@ let getPendingWork = (work, rgbaOrder, rgbaCanvas) => {
 };
 
 (async function () {
-    await new Promise(r => setTimeout(r, 3000));
-
+    while(document.getElementById('place').textContent != "Place a tile")
+    {
+        await new Promise(r => setTimeout(r, 150));
+    }
     GM_addStyle(GM_getResourceText('TOASTIFY_CSS'))
 
     currentOrderCanvas0 = document.createElement('CANVAS');
     currentOrderCanvas1 = document.createElement('CANVAS');
     currentOrderCanvas2 = document.createElement('CANVAS');
     currentOrderCanvas3 = document.createElement('CANVAS');
+    currentOrderCanvas4 = document.createElement('CANVAS');
 
     currentOrderCtx0 = currentOrderCanvas0.getContext('2d');
     currentOrderCtx1 = currentOrderCanvas1.getContext('2d');
     currentOrderCtx2 = currentOrderCanvas2.getContext('2d');
     currentOrderCtx3 = currentOrderCanvas3.getContext('2d');
+    currentOrderCtx4 = currentOrderCanvas4.getContext('2d');
 
     currentPlaceCanvas = document.createElement('CANVAS');
 
@@ -307,6 +317,11 @@ let getPendingWork = (work, rgbaOrder, rgbaCanvas) => {
     currentOrderCanvas3.height = 2000
     currentOrderCanvas3.style.display = 'none'
     currentOrderCanvas3 = document.body.appendChild(currentOrderCanvas3)
+
+    currentOrderCanvas4.width = 2000
+    currentOrderCanvas4.height = 2000
+    currentOrderCanvas4.style.display = 'none'
+    currentOrderCanvas4 = document.body.appendChild(currentOrderCanvas4)
 
     currentPlaceCanvas.width = 2000
     currentPlaceCanvas.height = 2000
@@ -365,19 +380,27 @@ let getPendingWork = (work, rgbaOrder, rgbaCanvas) => {
         duration: DEFAULT_TOAST_DURATION_MS,
     }).showToast()
 
+    currentOrderCtx4 = await getCanvasFromUrl(cnc_url4, currentOrderCanvas4, 0, 0, true,)
+    order4 = getRealWork(currentOrderCtx4.getImageData(0, 0, 2000, 2000).data)
+    Toastify({
+        text: `Done getting template5 from github, ${order4.length} pixels in total...`,
+        duration: DEFAULT_TOAST_DURATION_MS,
+    }).showToast()
+
     attemptPlace()
 })()
 
 async function attemptPlace() {
-    if (order0 == undefined || order1 == undefined || order2 == undefined || order3 == undefined) {
+    if (order0 == undefined || order1 == undefined || order2 == undefined || order3 == undefined || order4 == undefined) {
         setTimeout(attemptPlace, 1000) // probeer opnieuw in 2sec.
         return
     }
-    if (rgbaOrder0 == undefined || rgbaOrder1 == undefined || rgbaOrder2 == undefined || rgbaOrder3 == undefined) {
+    if (rgbaOrder0 == undefined || rgbaOrder1 == undefined || rgbaOrder2 == undefined || rgbaOrder3 == undefined || rgbaOrder4 == undefined) {
         rgbaOrder0 = currentOrderCtx0.getImageData(0, 0, 2000, 2000).data
         rgbaOrder1 = currentOrderCtx1.getImageData(0, 0, 2000, 2000).data
         rgbaOrder2 = currentOrderCtx2.getImageData(0, 0, 2000, 2000).data
         rgbaOrder3 = currentOrderCtx3.getImageData(0, 0, 2000, 2000).data
+        rgbaOrder4 = currentOrderCtx4.getImageData(0, 0, 2000, 2000).data
         setTimeout(attemptPlace, 1000) // probeer opnieuw in 2sec.
         return
     }
@@ -397,9 +420,9 @@ async function attemptPlace() {
         return
     }
 
-    if(location.origin === 'https://rplace.t3knical.com' && COOLDOWN > 1.5)
+    if(location.origin === 'https://rplace.t3knical.com' && COOLDOWN > 0.05)
     {
-        COOLDOWN = 1.5;
+        COOLDOWN = 0.05;
     }
 
     if (CD <= Date.now()) {
@@ -412,11 +435,14 @@ async function attemptPlace() {
                 work2 = getPendingWork(order2, rgbaOrder2, rgbaCanvas)
                 if (work2.length === 0) {
                     work3 = getPendingWork(order3, rgbaOrder3, rgbaCanvas)
+                    if (work3.length === 0) {
+                        work4 = getPendingWork(order4, rgbaOrder4, rgbaCanvas)
+                    }
                 }
             }
         }
 
-        if (work0.length === 0 && work1.length === 0 && work2.length === 0 && work3.length === 0) {
+        if (work0.length === 0 && work1.length === 0 && work2.length === 0 && work3.length === 0 && work4.length === 0) {
             document.getElementById('currentTemplate').textContent = `None - All Work Is Complete!`;
             document.getElementById('lastPlacedPixel').textContent = `${0}, ${0}`;
             document.getElementById('pixelesLeft').textContent = `All ${order3.length} Pixels Are Fixed!`;
@@ -482,6 +508,18 @@ async function attemptPlace() {
             document.getElementById('currentTemplate').textContent = `Template 4 - ${percentComplete}% Complete!`;
             document.getElementById('lastPlacedPixel').textContent = `${x1}, ${y1}`;
             document.getElementById('pixelesLeft').textContent = `${workRemaining}/${order3.length}`;
+        }
+        else if (work4.length > 0) {
+            percentComplete = 100 - Math.ceil((work4.length * 100) / order4.length)
+            workRemaining = work4.length
+            idx = Math.floor(Math.random() * work4.length)
+            i = work4[idx]
+            x1 = i % 2000
+            y1 = Math.floor(i / 2000)
+            hex = rgbaOrderToHex(i, rgbaOrder4)
+            document.getElementById('currentTemplate').textContent = `Template 5 - ${percentComplete}% Complete!`;
+            document.getElementById('lastPlacedPixel').textContent = `${x1}, ${y1}`;
+            document.getElementById('pixelesLeft').textContent = `${workRemaining}/${order4.length}`;
         }
         autoput(x1, y1, hex);
         //Toastify({ text: `Trying to place pixel ${x1}, ${y1}, color ${hex},${COLOR_MAPPINGS[hex]}... (${percentComplete}% complete, ${workRemaining} left)`, duration: DEFAULT_TOAST_DURATION_MS, }).showToast()
