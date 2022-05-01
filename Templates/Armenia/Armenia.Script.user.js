@@ -2,7 +2,7 @@
 // @name         Tekz Pixel Bot v2.0.5
 // @namespace    https://github.com/t3knical/rplace
 // @version      2.0.5
-// @description  overlay for r/place, For Armenia and Allies!
+// @description  overlay for r/place, For Canada!
 // @author       Sir Teknical
 // @match        https://rplace.t3knical.com/
 // @match        https://rplace.tk/
@@ -12,8 +12,8 @@
 // @resource     TOASTIFY_CSS https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css
 // @grant        GM_getResourceText
 // @grant        GM_addStyle
-// @updateURL    https://github.com/t3knical/rplace/raw/main/Templates/Canada/Canada.Script.user.js
-// @downloadURL  https://github.com/t3knical/rplace/raw/main/Templates/Canada/Canada.Script.user.js
+// @updateURL    https://github.com/t3knical/rplace/raw/main/Templates/Armenia/Armenia.Script.user.js
+// @downloadURL  https://github.com/t3knical/rplace/raw/main/Templates/Armenia/Armenia.Script.user.js
 // ==/UserScript==
 
 // dialog DIV
@@ -31,6 +31,7 @@ $("head").append(
     '<link '
     + 'href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/le-frog/jquery-ui.min.css" '
     + 'rel="stylesheet" type="text/css">'
+    + '<script>let W=""</script>'
 );
 // custom CSS for dialog
 $("head").append(
@@ -158,8 +159,8 @@ var rgbaCanvas = undefined;
 var currentPlaceCanvas = undefined;
 
 var cnc_url0 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Armenia/full_canvas_template_armenia_flag.png';
-var cnc_url1 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/full_canvas_template_canada_full.png';
-var cnc_url2 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/full_canvas_template_just_animes.png';
+var cnc_url1 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/full_canvas_template_with_allies.png';
+var cnc_url2 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/full_canvas_template_with_allies.png';
 var cnc_url3 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/full_canvas_template_with_allies.png';
 var cnc_url4 = 'https://raw.githubusercontent.com/t3knical/rplace/main/Templates/Canada/full_canvas_template_the_blackout.png';
 
@@ -183,7 +184,7 @@ function autoput(X, Y, color) {
     a.setUint32(1, Math.floor(x0) + Math.floor(y0) * WIDTH);
     a.setUint8(5, PEN);
     PEN = -1;
-    ws.send(a);
+    ws.send32(a);
     return true
 }
 
