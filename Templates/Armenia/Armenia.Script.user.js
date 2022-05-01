@@ -2,7 +2,7 @@
 // @name         Tekz Pixel Bot v2.0.5
 // @namespace    https://github.com/t3knical/rplace
 // @version      2.0.5
-// @description  overlay for r/place, For Canada!
+// @description  overlay for r/place, For Armenia and Allies!
 // @author       Sir Teknical
 // @match        https://rplace.t3knical.com/
 // @match        https://rplace.tk/
